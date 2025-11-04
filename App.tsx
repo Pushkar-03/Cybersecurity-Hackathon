@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import LiveAlertsTable from './components/LiveAlertsTable';
-import AnalyticsCards from './components/AnalyticsCards';
-import AlertDetail from './components/AlertDetail';
-import JiraIssuePanel from './components/JiraIssuePanel';
-import ActiveCasesTimeline from './components/ActiveCasesTimeline';
 import CreateJiraModal from './components/CreateJiraModal';
 import { Alert } from './types';
 import { MOCK_ALERTS } from './constants';
+import DashboardPage from './pages/DashboardPage';
+import IncidentsPage from './pages/IncidentsPage';
+import PlaybooksPage from './pages/PlaybooksPage';
+import ReportsPage from './pages/ReportsPage';
+import IntegrationsPage from './pages/IntegrationsPage';
 
 // FIX: Remove explicit JSX.Element return type to fix compile error and rely on type inference.
 export default function App() {
   const [alerts, setAlerts] = useState<Alert[]>(MOCK_ALERTS);
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(alerts[0]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [activePage, setActivePage] = useState('Dashboard');
 
   const handleSelectAlert = (alert: Alert) => {
     setSelectedAlert(alert);
@@ -32,31 +33,49 @@ export default function App() {
     }
   };
 
+  const handleNavigate = (page: string) => {
+    setActivePage(page);
+  };
+
+  const renderPage = () => {
+    const currentPage = (activePage === 'Alerts') ? 'Dashboard' : activePage;
+    switch (currentPage) {
+      case 'Dashboard':
+        return <DashboardPage 
+            alerts={alerts}
+            selectedAlert={selectedAlert}
+            onSelectAlert={handleSelectAlert}
+            onCreateJira={handleCreateJira}
+            onDismissAlert={handleDismissAlert}
+            onOpenJiraModal={() => setIsModalOpen(true)}
+        />;
+      case 'Incidents (Jira)':
+        return <IncidentsPage />;
+      case 'Playbooks':
+        return <PlaybooksPage />;
+      case 'Reports':
+        return <ReportsPage />;
+      case 'Integrations':
+        return <IntegrationsPage />;
+      default:
+        return <DashboardPage 
+            alerts={alerts}
+            selectedAlert={selectedAlert}
+            onSelectAlert={handleSelectAlert}
+            onCreateJira={handleCreateJira}
+            onDismissAlert={handleDismissAlert}
+            onOpenJiraModal={() => setIsModalOpen(true)}
+        />;
+    }
+  };
+
   return (
     <div className="flex h-screen bg-gradient-to-br from-dark-bg to-dark-bg-2 text-text-primary overflow-hidden">
-      <Sidebar />
+      <Sidebar activePage={activePage} onNavigate={handleNavigate}/>
       <div className="flex-1 flex flex-col pl-20 overflow-y-auto">
         <Header />
-        <main className="flex-1 p-6 space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2">
-              <LiveAlertsTable 
-                alerts={alerts} 
-                selectedAlert={selectedAlert}
-                onSelectAlert={handleSelectAlert}
-                onCreateJira={handleCreateJira}
-                onDismissAlert={handleDismissAlert}
-              />
-            </div>
-            <AnalyticsCards />
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AlertDetail alert={selectedAlert} onOpenJiraModal={() => setIsModalOpen(true)} />
-            <JiraIssuePanel alert={selectedAlert} />
-          </div>
-
-          <ActiveCasesTimeline />
+        <main className="flex-1 p-6">
+          {renderPage()}
         </main>
       </div>
       {isModalOpen && selectedAlert && (
@@ -65,6 +84,13 @@ export default function App() {
           onClose={() => setIsModalOpen(false)}
         />
       )}
+      <style>{`
+          @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          .animate-fade-in { animation: fade-in 0.4s ease-out forwards; }
+        `}</style>
     </div>
   );
 }
