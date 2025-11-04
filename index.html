@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SentinelOps - Incident Response</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#00C6FF',
+              secondary: '#0072FF',
+              accent: '#2EF3C0',
+              'dark-bg': '#0A0A0A',
+              'dark-bg-2': '#121212',
+              'dark-card': 'rgba(255, 255, 255, 0.05)',
+              'dark-border': 'rgba(255, 255, 255, 0.1)',
+              'text-primary': '#E0E0E0',
+              'text-secondary': '#A0A0A0',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              heading: ['Poppins', 'sans-serif'],
+              mono: ['Roboto Mono', 'monospace'],
+            },
+            backdropBlur: {
+              xl: '24px',
+            },
+            boxShadow: {
+              'glow-primary': '0 0 15px rgba(0, 198, 255, 0.3)',
+              'glow-accent': '0 0 15px rgba(46, 243, 192, 0.4)',
+            }
+          },
+        },
+      }
+    </script>
+    <script type="text/javascript" src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "recharts": "https://aistudiocdn.com/recharts@^3.3.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gradient-to-br from-dark-bg to-dark-bg-2 text-text-primary font-sans antialiased">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

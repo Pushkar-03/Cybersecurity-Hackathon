@@ -1,0 +1,5 @@
+{
+  "name": "SentinelOps - Incident Response & Case Management",
+  "description": "A modern, technical SOC webapp for ingesting alerts, triaging incidents and automatically opening/updating Jira issues for case management. The UI is dark, glassmorphic, with smooth transitions and micro-interactions.",
+  "requestFramePermissions": []
+}
