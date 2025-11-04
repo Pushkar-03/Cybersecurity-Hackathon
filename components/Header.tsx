@@ -29,13 +29,6 @@ const Header: React.FC = () => {
             <span className="relative inline-flex rounded-full h-3 w-3 bg-accent"></span>
           </span>
         </button>
-        <div className="flex items-center space-x-2">
-            <img src="https://picsum.photos/seed/sentinelops/40/40" alt="User Avatar" className="w-10 h-10 rounded-full border-2 border-primary/50" />
-            <div>
-              <p className="font-semibold text-sm">Alex Hudson</p>
-              <p className="text-xs text-text-secondary">SOC Analyst</p>
-            </div>
-        </div>
       </div>
     </header>
   );

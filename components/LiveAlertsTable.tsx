@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Alert, AlertSeverity } from '../types';
 import GlassCard from './GlassCard';
@@ -38,7 +37,14 @@ const LiveAlertsTable: React.FC<LiveAlertsTableProps> = ({ alerts, selectedAlert
             </tr>
           </thead>
           <tbody className="divide-y divide-dark-border">
-            {alerts.map((alert) => (
+            {alerts.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="text-center py-10 text-text-secondary">
+                  No live alerts at the moment.
+                </td>
+              </tr>
+            ) : (
+              alerts.map((alert) => (
               <tr
                 key={alert.id}
                 onClick={() => onSelectAlert(alert)}
@@ -67,7 +73,7 @@ const LiveAlertsTable: React.FC<LiveAlertsTableProps> = ({ alerts, selectedAlert
                   </div>
                 </td>
               </tr>
-            ))}
+            )))}
           </tbody>
         </table>
       </div>

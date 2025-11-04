@@ -12,7 +12,9 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
   if (!SvgIcon) {
     return null; 
   }
-  return React.cloneElement(SvgIcon, { className });
+  // FIX: Cast SvgIcon to `React.ReactElement<any>` to fix a type error where `className`
+  // could not be passed to `cloneElement` because the props type was inferred as `unknown`.
+  return React.cloneElement(SvgIcon as React.ReactElement<any>, { className });
 };
 
 export default Icon;

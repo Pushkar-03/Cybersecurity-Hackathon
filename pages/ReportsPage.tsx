@@ -3,8 +3,9 @@ import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Legend, PieChart, P
 import GlassCard from '../components/GlassCard';
 import PageHeader from '../components/PageHeader';
 import { MOCK_ANALYTICS } from '../constants';
+import { AnalyticsCardData } from '../types';
 
-const AnalyticsCard: React.FC<{ card: any }> = ({ card }) => {
+const AnalyticsCard: React.FC<{ card: AnalyticsCardData }> = ({ card }) => {
     const ChangeIndicator: React.FC<{ change?: string, changeType?: 'increase' | 'decrease' }> = ({ change, changeType }) => {
     if (!change || !changeType) return null;
     const isIncrease = changeType === 'increase';
@@ -25,19 +26,9 @@ const AnalyticsCard: React.FC<{ card: any }> = ({ card }) => {
     )
 }
 
-const alertSourceData = [
-  { name: 'Wazuh', value: 450 },
-  { name: 'CrowdStrike', value: 300 },
-  { name: 'Proofpoint', value: 200 },
-  { name: 'Firewall', value: 150 },
-];
+const alertSourceData: { name: string; value: number }[] = [];
 
-const alertSeverityData = [
-    { name: 'Critical', value: 50 },
-    { name: 'High', value: 120 },
-    { name: 'Medium', value: 430 },
-    { name: 'Low', value: 500 },
-];
+const alertSeverityData: { name: string; value: number }[] = [];
 
 const COLORS = ['#be123c', '#f97316', '#facc15', '#4d7c0f'];
 
@@ -54,37 +45,49 @@ const ReportsPage: React.FC = () => {
                 <GlassCard className="p-6">
                     <h3 className="font-heading font-semibold mb-4">Alerts by Source</h3>
                     <div className="h-80">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={alertSourceData} layout="vertical" margin={{ top: 0, right: 30, left: 30, bottom: 0 }}>
-                                <XAxis type="number" stroke="#A0A0A0" fontSize={12} />
-                                <YAxis type="category" dataKey="name" stroke="#A0A0A0" fontSize={12} width={80} />
-                                <Tooltip cursor={{ fill: 'rgba(0, 198, 255, 0.1)' }} contentStyle={{ background: 'rgba(10,10,10,0.8)', border: '1px solid #00C6FF', borderRadius: '8px' }}/>
-                                <Bar dataKey="value" fill="url(#colorBar)" background={{ fill: 'rgba(255,255,255,0.05)' }} barSize={20} radius={[0, 4, 4, 0]}>
-                                    <defs>
-                                        <linearGradient id="colorBar" x1="0" y1="0" x2="1" y2="0">
-                                            <stop offset="0%" stopColor="#0072FF" />
-                                            <stop offset="100%" stopColor="#00C6FF" />
-                                        </linearGradient>
-                                    </defs>
-                                </Bar>
-                            </BarChart>
-                        </ResponsiveContainer>
+                        {alertSourceData.length > 0 ? (
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={alertSourceData} layout="vertical" margin={{ top: 0, right: 30, left: 30, bottom: 0 }}>
+                                    <XAxis type="number" stroke="#A0A0A0" fontSize={12} />
+                                    <YAxis type="category" dataKey="name" stroke="#A0A0A0" fontSize={12} width={80} />
+                                    <Tooltip cursor={{ fill: 'rgba(0, 198, 255, 0.1)' }} contentStyle={{ background: 'rgba(10,10,10,0.8)', border: '1px solid #00C6FF', borderRadius: '8px' }}/>
+                                    <Bar dataKey="value" fill="url(#colorBar)" background={{ fill: 'rgba(255,255,255,0.05)' }} barSize={20} radius={[0, 4, 4, 0]}>
+                                        <defs>
+                                            <linearGradient id="colorBar" x1="0" y1="0" x2="1" y2="0">
+                                                <stop offset="0%" stopColor="#0072FF" />
+                                                <stop offset="100%" stopColor="#00C6FF" />
+                                            </linearGradient>
+                                        </defs>
+                                    </Bar>
+                                </BarChart>
+                            </ResponsiveContainer>
+                        ) : (
+                            <div className="flex items-center justify-center h-full text-text-secondary">
+                                No data available
+                            </div>
+                        )}
                     </div>
                 </GlassCard>
                 <GlassCard className="p-6">
                     <h3 className="font-heading font-semibold mb-4">Alerts by Severity</h3>
                      <div className="h-80">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                                <Pie data={alertSeverityData} cx="50%" cy="50%" outerRadius={110} fill="#8884d8" dataKey="value" labelLine={false} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-                                    {alertSeverityData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))}
-                                </Pie>
-                                <Tooltip contentStyle={{ background: 'rgba(10,10,10,0.8)', border: '1px solid #00C6FF', borderRadius: '8px' }}/>
-                                <Legend />
-                            </PieChart>
-                        </ResponsiveContainer>
+                        {alertSeverityData.length > 0 ? (
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie data={alertSeverityData} cx="50%" cy="50%" outerRadius={110} fill="#8884d8" dataKey="value" labelLine={false} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+                                        {alertSeverityData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip contentStyle={{ background: 'rgba(10,10,10,0.8)', border: '1px solid #00C6FF', borderRadius: '8px' }}/>
+                                    <Legend />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        ) : (
+                            <div className="flex items-center justify-center h-full text-text-secondary">
+                                No data available
+                            </div>
+                        )}
                     </div>
                 </GlassCard>
             </div>

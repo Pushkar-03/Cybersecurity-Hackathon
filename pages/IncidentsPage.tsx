@@ -32,24 +32,32 @@ const IncidentsPage: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-dark-border">
-                            {incidents.map((incident) => (
-                                <tr key={incident.jiraIssue.id} className="hover:bg-primary/5 transition-colors">
-                                    <td className="px-6 py-4 font-mono text-secondary">{incident.jiraIssue.key}</td>
-                                    <td className="px-6 py-4 max-w-md truncate">{incident.jiraIssue.summary}</td>
-                                    <td className="px-6 py-4">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${statusStyles[incident.jiraIssue.status]}`}>
-                                            {incident.jiraIssue.status}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-text-secondary">{incident.jiraIssue.assignee}</td>
-                                    <td className="px-6 py-4 text-text-primary">{incident.jiraIssue.priority}</td>
-                                    <td className="px-6 py-4">
-                                        <a href="#" className="flex items-center text-secondary hover:text-primary transition-colors text-xs font-semibold">
-                                            Open in Jira <Icon name="external-link" className="w-4 h-4 ml-1.5" />
-                                        </a>
+                            {incidents.length === 0 ? (
+                                <tr>
+                                    <td colSpan={6} className="text-center py-10 text-text-secondary">
+                                        No incidents found.
                                     </td>
                                 </tr>
-                            ))}
+                            ) : (
+                                incidents.map((incident) => (
+                                    <tr key={incident.jiraIssue.id} className="hover:bg-primary/5 transition-colors">
+                                        <td className="px-6 py-4 font-mono text-secondary">{incident.jiraIssue.key}</td>
+                                        <td className="px-6 py-4 max-w-md truncate">{incident.jiraIssue.summary}</td>
+                                        <td className="px-6 py-4">
+                                            <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${statusStyles[incident.jiraIssue.status]}`}>
+                                                {incident.jiraIssue.status}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 text-text-secondary">{incident.jiraIssue.assignee}</td>
+                                        <td className="px-6 py-4 text-text-primary">{incident.jiraIssue.priority}</td>
+                                        <td className="px-6 py-4">
+                                            <a href="#" className="flex items-center text-secondary hover:text-primary transition-colors text-xs font-semibold">
+                                                Open in Jira <Icon name="external-link" className="w-4 h-4 ml-1.5" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>

@@ -14,6 +14,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ enabled, onChange }) => {
     onChange(newState);
   };
 
+
   return (
     <button
       onClick={handleToggle}

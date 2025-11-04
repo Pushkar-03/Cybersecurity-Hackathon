@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Alert, AlertSeverity, AnalyticsCardData, Playbook } from './types';
 
@@ -19,23 +18,8 @@ export const ICONS: { [key: string]: React.ReactElement } = {
   'upload-cloud': <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 17.5a2.5 2.5 0 0 0-5 0"/><path d="M15 17.5a2.5 2.5 0 0 1 5 0"/><path d="M20 17.5V13l-2.5 2.5L15 13v4.5"/><path d="M14.5 17.5H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1.172a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 8.828 6H14a2 2 0 0 1 2 2v2.5"/><path d="M12.5 10.5 10 13l2.5 2.5"/><path d="m10 13 5 .001"/></svg>,
 };
 
-export const MOCK_ALERTS: Alert[] = [
-  { id: 'AL-1', timestamp: '2023-10-27T10:40:12Z', severity: AlertSeverity.Critical, source: 'Wazuh', title: 'Multiple authentication failures for user \'admin\'', age: '2m ago', entity: 'srv-db-01', jiraIssue: { id: 'INC-101', key: 'SOC-1234', summary: 'Multiple auth failures for user \'admin\' on srv-db-01', status: 'In Progress', assignee: 'Alice', priority: 'Highest' }, rawJson: { "rule_id": "5710", "description": "sshd: Multiple authentication failures.", "user": "admin", "src_ip": "192.168.1.105" } },
-  { id: 'AL-2', timestamp: '2023-10-27T10:38:55Z', severity: AlertSeverity.High, source: 'CrowdStrike', title: 'Suspicious PowerShell command execution', age: '4m ago', entity: 'ws-dev-jdoe', rawJson: { "process_id": "12345", "command_line": "powershell -enc aW52b2tl...", "parent_process": "explorer.exe" } },
-  { id: 'AL-3', timestamp: '2023-10-27T10:35:01Z', severity: AlertSeverity.Medium, source: 'Proofpoint', title: 'Potential phishing email detected', age: '8m ago', entity: 'finance@acme.corp', rawJson: { "sender": "badactor@evil.com", "recipient": "finance@acme.corp", "subject": "Urgent Invoice", "attachments": ["invoice.zip"] } },
-  { id: 'AL-4', timestamp: '2023-10-27T10:30:22Z', severity: AlertSeverity.Low, source: 'Firewall', title: 'Port scan detected from external IP', age: '12m ago', entity: '203.0.113.55', rawJson: { "source_ip": "203.0.113.55", "destination_port_range": "1-1024", "protocol": "TCP" } },
-  { id: 'AL-5', timestamp: '2023-10-27T10:25:10Z', severity: AlertSeverity.High, source: 'Wazuh', title: 'Rootkit detected on critical server', age: '18m ago', entity: 'srv-web-03', jiraIssue: { id: 'INC-102', key: 'SOC-1230', summary: 'Rootkit detected on srv-web-03', status: 'To Do', assignee: 'Bob', priority: 'High' }, rawJson: { "agent_id": "003", "rule.description": "Chkrootkit command detected a rootkit." } },
-];
+export const MOCK_ALERTS: Alert[] = [];
 
-export const MOCK_ANALYTICS: AnalyticsCardData[] = [
-  { title: 'Open Jira Issues', value: '38', change: '+2', changeType: 'increase', chartData: [ { name: 'W1', value: 30 }, { name: 'W2', value: 32 }, { name: 'W3', value: 36 }, { name: 'W4', value: 38 } ] },
-  { title: 'Avg. Time to Triage', value: '12m 45s', change: '-3%', changeType: 'decrease', chartData: [ { name: 'W1', value: 15 }, { name: 'W2', value: 14 }, { name: 'W3', value: 13.2 }, { name: 'W4', value: 12.75 } ] },
-  { title: 'Critical Alerts', value: '14', change: '+5%', changeType: 'increase' },
-  { title: 'Automated Cases', value: '122', change: '+10%', changeType: 'decrease' },
-];
+export const MOCK_ANALYTICS: AnalyticsCardData[] = [];
 
-export const MOCK_PLAYBOOKS: Playbook[] = [
-    { id: 'PB-1', title: 'Phishing Response', description: 'Isolate email, collect headers, analyze attachments, block sender.' },
-    { id: 'PB-2', title: 'Malware Containment', description: 'Isolate host, collect memory image, revert snapshot, scan network.' },
-    { id: 'PB-3', title: 'Credential Compromise', description: 'Reset user password, revoke sessions, review access logs.' },
-];
+export const MOCK_PLAYBOOKS: Playbook[] = [];

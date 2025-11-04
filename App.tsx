@@ -12,8 +12,8 @@ import IntegrationsPage from './pages/IntegrationsPage';
 
 // FIX: Remove explicit JSX.Element return type to fix compile error and rely on type inference.
 export default function App() {
-  const [alerts, setAlerts] = useState<Alert[]>(MOCK_ALERTS);
-  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(alerts[0]);
+  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [activePage, setActivePage] = useState('Dashboard');
 
